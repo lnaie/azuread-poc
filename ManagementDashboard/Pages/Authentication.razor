@@ -1,0 +1,35 @@
+@page "/authentication/{action}"
+
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using ManagementDashboard.Infra
+
+@code{
+    [Parameter] public string Action { get; set; }
+}
+
+<RemoteAuthenticatorView Action="@Action">
+    <LoggingIn>
+        You are about to be redirected to https://login.microsoftonline.com ...
+    </LoggingIn>
+    <LogInFailed>
+        Login failed with the message:<br />
+        @qsErrorMessage
+    </LogInFailed>
+</RemoteAuthenticatorView>
+
+@inject NavigationManager _navManager
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> _authenticationStateTask { get; set; }
+    private string qsErrorMessage;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        var user = (await _authenticationStateTask).User;
+
+        if (!user.Identity.IsAuthenticated)
+        {
+            _navManager.TryGetQueryString<string>("message", out qsErrorMessage);
+        }
+    }
+}

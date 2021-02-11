@@ -1,0 +1,35 @@
+﻿@page "/apiclaims"
+@attribute [Authorize]
+
+@using ManagementDashboard.Services
+@using Microsoft.AspNetCore.Authorization
+
+<h1>API User claims</h1>
+
+@if (claimsCollection == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="container p-0 m-0">
+        @foreach (var item in claimsCollection)
+        {
+            <div class="row">
+                <div class="col">@item.Type</div>
+                <div class="col">@item.Value</div>
+            </div>
+        }
+    </div>
+}
+
+
+@inject IdentityApiService _apiService
+@code {
+    private List<ClaimItem> claimsCollection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        claimsCollection = await _apiService.GetApiClaims();
+    }
+}

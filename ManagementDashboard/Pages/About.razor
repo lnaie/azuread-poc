@@ -1,0 +1,24 @@
+﻿@page "/about"
+
+@using System.Reflection
+
+<h2>About</h2>
+
+<br/>
+<p>
+    App version: @appVersion
+</p>
+<p>
+    &copy; T-Mobile Netherlands B.V. All right reserved.
+</p>
+
+@code {
+    private string appVersion;
+
+    protected override async Task OnInitializedAsync()
+    {
+        appVersion = Assembly.GetExecutingAssembly()
+            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+            .InformationalVersion;
+    }
+}

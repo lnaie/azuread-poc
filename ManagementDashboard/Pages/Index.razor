@@ -1,0 +1,81 @@
+﻿@page "/"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using System.Security.Claims
+@using Microsoft.Extensions.Configuration
+
+<AuthorizeView>
+    <Authorized>
+        <h2>Hello, @userDisplayName!</h2>
+    </Authorized>
+    <NotAuthorized>
+        <h2>Hello!</h2>
+    </NotAuthorized>
+</AuthorizeView>
+
+<br />
+<p>
+    Welcome to the Management Dashboard for RebelTV.
+</p>
+<AuthorizeView>
+    <Authorized>
+        <p>Roles: @appRoles.</p>
+
+        <div class="claims">
+            <div>Claims:</div>
+            @if (userClaims.Count() > 0)
+            {
+                <ul>
+                    @foreach (var claim in userClaims)
+                    {
+                        <li class="wrap-text @claim.Type">@claim.Type: @claim.Value</li>
+                    }
+                </ul>
+            }
+        </div>
+
+        <div class="id-token">
+            <div>ID token:</div>
+            <p>@idToken</p>
+        </div>
+    </Authorized>
+</AuthorizeView>
+
+@inject IJSRuntime _jSRuntime
+@inject NavigationManager _navManager
+@inject IConfiguration _configuration
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> _authenticationStateTask { get; set; }
+    private string userDisplayName;
+    private string appRoles;
+    private IEnumerable<Claim> userClaims = Enumerable.Empty<Claim>();
+    private string idToken;
+
+    private HttpClient _httpClient;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await _authenticationStateTask).User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            userDisplayName = user.Identity.Name;
+            appRoles = string.Join(",", user.Claims.Where(x => x.Type == "appRole").Select(x => x.Value));
+            userClaims = user.Claims;
+
+            //var baseUri = _navManager.BaseUri.Substring(0, _navManager.BaseUri.Length - 1);
+            //var userDataKey = $"oidc.user:{baseUri}:{_configuration["AzureAd:ClientId"]}";
+            //var userData = await _jSRuntime.InvokeAsync<UserData>("sessionStorage.getItem", userDataKey);
+            //idToken = userData?.id_token ?? string.Empty;
+
+        }
+    }
+
+    private class UserData
+    {
+        public string id_token { get; set; }
+        public int expires_at { get; set; }
+    }
+}

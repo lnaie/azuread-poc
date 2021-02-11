@@ -1,0 +1,35 @@
+﻿@page "/todos"
+@attribute [Authorize]
+
+@using ManagementDashboard.Services
+@using Microsoft.AspNetCore.Authorization
+
+<h1>TODOs</h1>
+
+@if (todosCollection == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="container p-0 m-0">
+        @foreach (var item in todosCollection)
+        {
+            <div class="row">
+                <div class="col">@item.Title</div>
+                <div class="col">@item.Owner</div>
+            </div>
+        }
+    </div>
+}
+
+
+@inject IdentityApiService _apiService
+@code {
+    private List<TodoItem> todosCollection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        todosCollection = await _apiService.GetAllTodos();
+    }
+}
