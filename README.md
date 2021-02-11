@@ -82,3 +82,18 @@ The token created by the MD to call API endpoints turns out to be ```v1```. Not 
   * Using custom "AzureADBearer" authentication scheme => FAILS with 401 in IdentityApi middleware:
     * ```IdentityApi/Startup.cs```, line: ```var azureAdBearerScheme = "AzureADBearer";```
     * ```ManagementDashboard/Infra/ApiAuthorizationMessageHandler.cs```, line: ```var authenticationScheme =  "AzureADBearer";```
+    * And these are the logs:
+        ```
+        dbug: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[9]
+              AuthenticationScheme: AzureADBearer was not authenticated.
+        dbug: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[9]
+              AuthenticationScheme: AzureADBearer was not authenticated.
+        info: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[2]
+              Authorization failed.
+        dbug: Microsoft.Identity.Web.Resource.JwtBearerMiddlewareDiagnostics[0]
+              Begin OnChallengeAsync.
+        dbug: Microsoft.Identity.Web.Resource.JwtBearerMiddlewareDiagnostics[0]
+              End OnChallengeAsync.
+        info: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[12]
+              AuthenticationScheme: AzureADBearer was challenged.
+        ```
