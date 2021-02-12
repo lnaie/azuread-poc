@@ -38,7 +38,16 @@ namespace TodoListService
                     Configuration,
                     configSectionName: "AzureAd",
                     jwtBearerScheme: azureAdBearerScheme,
-                    subscribeToJwtBearerMiddlewareDiagnosticsEvents: true);
+                    subscribeToJwtBearerMiddlewareDiagnosticsEvents: true
+                );
+            //services.AddAuthentication()
+            //    .AddMicrosoftIdentityWebApi(Configuration,
+            //        configSectionName: "AzureAd",
+            //        jwtBearerScheme: azureAdBearerScheme,
+            //        subscribeToJwtBearerMiddlewareDiagnosticsEvents: true
+            //    )
+            //    .EnableTokenAcquisitionToCallDownstreamApi()
+            //    .AddInMemoryTokenCaches();
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("AzureADUser", policy =>
