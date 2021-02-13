@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Identity.Web" Version="1.5.1" />
+    <ProjectReference Include="..\..\..\microsoft-identity-web\src\Microsoft.Identity.Web\Microsoft.Identity.Web.csproj" />
   </ItemGroup>
+    <ItemGroup>
+	    <!--<PackageReference Include="Microsoft.Identity.Web" Version="1.5.1" />-->
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.8" />
+    </ItemGroup>
 </Project>

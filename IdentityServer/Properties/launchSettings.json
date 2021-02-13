@@ -1,0 +1,16 @@
+{
+    "profiles": {
+        "IdentityServer": {
+            "commandName": "Project",
+            "dotnetRunMessages": "true",
+            "launchBrowser": true,
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_HTTPS_PORT": "17443",
+                "ASPNETCORE_URLS": "https://+:17443;http://+:17080"
+            },
+            "applicationUrl": "https://localhost:17443",
+            "launchUrl": "swagger"
+        }
+    }
+}
