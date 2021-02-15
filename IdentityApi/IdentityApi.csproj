@@ -6,11 +6,11 @@
     <WebProject_DirectoryAccessLevelKey>0</WebProject_DirectoryAccessLevelKey>
   </PropertyGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <ProjectReference Include="..\..\..\microsoft-identity-web\src\Microsoft.Identity.Web\Microsoft.Identity.Web.csproj" />
-  </ItemGroup>
+  </ItemGroup>-->
     <ItemGroup>
-	    <!--<PackageReference Include="Microsoft.Identity.Web" Version="1.5.1" />-->
+	    <PackageReference Include="Microsoft.Identity.Web" Version="1.5.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.8" />
     </ItemGroup>
 </Project>

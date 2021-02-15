@@ -68,6 +68,16 @@ Setup AzureAD credentials in the API confiuration file: ```IdentityApi/appsettin
 Configure the same ClientId and TenantId credentials that were used to configure the ManagementDashboard app.
 
 
+### IdentityServer Setup
+
+Setup the issuer (or the name if this instance, it usually matches the hostname) ```IdentityServer.IssuerUri``` in the API confiuration file: ```IdentityServer/appsettings.json```.
+
+
+### IdentityClient Setup
+
+Setup the ```IdentityServer.Authority``` and ```IdentityApi.BaseUrl``` the tool confiuration file: ```IdentityClient/appsettings.json```.
+This tool is used to test 2 IDS clients and aquire JWT tokens through running it.
+
 
 ### Test cases (2012-02)
 
